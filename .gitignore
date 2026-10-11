@@ -23,3 +23,6 @@ dist
 # Finder (MacOS) folder config
 .DS_Store
 .playwright-mcp/
+
+# Local Netlify folder
+.netlify
