@@ -1,0 +1,16 @@
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <p class="site-header__tagline">{{ site.tagline }}</p>
+  <div class="site-header__bar">
+    <a class="site-header__home" href="/" aria-label="{{ site.name }}, home"{% if page.url == "/" %} aria-current="page"{% endif %}>
+      {%- include "wordmark.liquid" -%}
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul class="site-nav__list">
+        {%- for item in site.nav %}
+        <li><a class="site-nav__link" href="{{ item.url }}"{% if page.url contains item.url %} aria-current="page"{% endif %}>{{ item.label }}</a></li>
+        {%- endfor %}
+      </ul>
+    </nav>
+  </div>
+</header>

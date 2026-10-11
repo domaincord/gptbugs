@@ -1,0 +1,62 @@
+{
+  "name": "GPT Bugs",
+  "tagline": "A public record of prompt injections found in the wild.",
+  "url": "https://gptbugs.com",
+  "nav": [
+    {
+      "label": "Injections",
+      "url": "/injections/"
+    },
+    {
+      "label": "What is it",
+      "url": "/prompt-injection/"
+    },
+    {
+      "label": "Protect",
+      "url": "/protect/"
+    },
+    {
+      "label": "About",
+      "url": "/about/"
+    }
+  ],
+  "footerNav": [
+    {
+      "label": "Home",
+      "url": "/"
+    },
+    {
+      "label": "About",
+      "url": "/about/"
+    },
+    {
+      "label": "Contact",
+      "url": "/contact/"
+    },
+    {
+      "label": "DMCA",
+      "url": "/dmca/"
+    }
+  ],
+  "owner": {
+    "name": "Domaincord",
+    "suffix": "Ventures LLC",
+    "url": "https://domaincord.com"
+  },
+  "year": 2026,
+  "reportForm": "https://tally.so/r/A7oqjD",
+  "email": {
+    "general": "hello@gptbugs.com",
+    "report": "report@gptbugs.com",
+    "dmca": "dmca@gptbugs.com"
+  },
+  "maintainer": {
+    "name": "Alex Crocker",
+    "role": "Maintainer"
+  },
+  "dmcaAgent": {
+    "name": "Domaincord Ventures LLC",
+    "attention": "DMCA Agent",
+    "address": "1070 Montgomery Rd; Unit 580; Altamonte Springs, FL 32714"
+  }
+}

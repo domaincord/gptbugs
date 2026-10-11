@@ -1,0 +1,381 @@
+/* GPT Bugs — long-form articles: table of contents, prose, code, tables, next-page link. */
+
+/* Article frame ---------------------------------------------------------- */
+.article {
+  display: grid;
+  gap: 2.5rem;
+  padding: clamp(1.5rem, 1rem + 2vw, 3rem) var(--gutter) 0;
+  border-top: var(--rule) solid var(--ink);
+}
+
+@media (min-width: 64rem) {
+  .article {
+    grid-template-columns: 15rem minmax(0, 1fr);
+    gap: clamp(2.5rem, 1rem + 4vw, 5rem);
+  }
+
+  .article--single {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .toc {
+    position: sticky;
+    top: 1.5rem;
+    align-self: start;
+    max-height: calc(100vh - 3rem);
+    overflow-y: auto;
+  }
+}
+
+/* Table of contents ------------------------------------------------------ */
+.toc__heading {
+  margin: 0 0 0.5rem;
+  font-size: var(--step--1);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.toc__list {
+  counter-reset: toc;
+  border-top: var(--rule-thin) solid var(--ink);
+}
+
+.toc__list li {
+  counter-increment: toc;
+  border-bottom: var(--rule-thin) solid var(--ink);
+}
+
+.toc__list a {
+  display: flex;
+  gap: 0.75rem;
+  min-height: var(--target);
+  padding: 0.6rem 0;
+  font-size: var(--step--1);
+  font-weight: 700;
+  line-height: 1.3;
+  text-decoration: none;
+}
+
+.toc__list a::before {
+  content: counter(toc, decimal-leading-zero);
+  flex: none;
+  min-width: 1.6em;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.toc__list a:hover {
+  text-decoration: underline;
+}
+
+/* Prose ------------------------------------------------------------------ */
+.prose {
+  max-width: 68ch;
+  min-width: 0;
+  line-height: 1.65;
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose p,
+.prose ul,
+.prose ol,
+.prose table,
+.prose pre,
+.prose blockquote {
+  margin: 0 0 1.25rem;
+}
+
+.prose h2 {
+  margin: 3.5rem 0 1rem;
+  padding-top: 1rem;
+  border-top: var(--rule) solid var(--ink);
+  font-size: var(--step-2);
+  font-weight: 900;
+  font-stretch: 112%;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  scroll-margin-top: 1rem;
+}
+
+.prose > h2:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.prose h3 {
+  margin: 2.25rem 0 0.5rem;
+  font-size: var(--step-1);
+  font-weight: 800;
+  font-stretch: 106%;
+  line-height: 1.2;
+  scroll-margin-top: 1rem;
+}
+
+.prose strong {
+  font-weight: 800;
+}
+
+.prose a:hover {
+  text-decoration-thickness: var(--rule);
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.4em;
+}
+
+.prose ul {
+  list-style: square;
+}
+
+.prose ol {
+  list-style: decimal;
+}
+
+.prose li + li {
+  margin-top: 0.4rem;
+}
+
+.prose li::marker {
+  font-weight: 800;
+}
+
+.prose li > :is(pre, p) {
+  margin-top: 0.75rem;
+}
+
+/* Pull statement: fully boxed, never a one-sided accent bar. */
+.prose blockquote {
+  margin-block: 2rem;
+  padding: 1.25rem 1.5rem;
+  border: var(--rule) solid var(--ink);
+  font-size: var(--step-1);
+  line-height: 1.35;
+}
+
+.prose blockquote p {
+  margin: 0;
+}
+
+/* Code ------------------------------------------------------------------- */
+.prose code {
+  font-size: 0.875em;
+}
+
+.prose :not(pre) > code {
+  padding: 0.1em 0.3em;
+  background: color-mix(in oklch, var(--ink) 7%, var(--paper));
+  overflow-wrap: anywhere;
+}
+
+.prose pre {
+  position: relative;
+  overflow-x: auto;
+  padding: 2.25rem 1.25rem 1.25rem;
+  border: var(--rule-thin) solid var(--ink);
+  background: color-mix(in oklch, var(--ink) 5%, var(--paper));
+  font-size: var(--step--1);
+  line-height: 1.6;
+  tab-size: 2;
+}
+
+.prose pre::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.25rem 0.6rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.prose pre:not([data-lang]) {
+  padding-top: 1.25rem;
+}
+
+.prose pre:not([data-lang])::before {
+  content: none;
+}
+
+.prose pre:focus-visible {
+  outline-offset: 2px;
+}
+
+.prose pre code {
+  font-size: inherit;
+}
+
+/* Tables ----------------------------------------------------------------- */
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--step--1);
+  line-height: 1.45;
+}
+
+.prose th,
+.prose td {
+  padding: 0.65rem 0.75rem;
+  border: var(--rule-thin) solid var(--ink);
+  text-align: left;
+  vertical-align: top;
+}
+
+.prose thead th {
+  border-bottom-width: var(--rule);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.prose tbody td:first-child {
+  font-weight: 700;
+}
+
+/* Checklist -------------------------------------------------------------- */
+.prose .checklist {
+  padding: 0;
+  list-style: none;
+  border-top: var(--rule) solid var(--ink);
+}
+
+.prose .checklist li {
+  position: relative;
+  margin: 0;
+  padding: 0.75rem 0 0.75rem 2.25rem;
+  border-bottom: var(--rule-thin) solid var(--ink);
+}
+
+.prose .checklist li::before {
+  content: "";
+  position: absolute;
+  top: 1.05rem;
+  left: 0.25rem;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--ink);
+}
+
+/* Postal address (DMCA agent) ------------------------------------------- */
+.prose .postal {
+  margin: 0 0 1.25rem;
+  padding: 1.25rem 1.5rem;
+  border: var(--rule) solid var(--ink);
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+/* Contact channels ------------------------------------------------------- */
+.prose .channels {
+  margin: -1.25rem 0 3rem;
+  padding: 0;
+  list-style: none;
+}
+
+.prose .channels .channel {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 1.25rem 0;
+  border-bottom: var(--rule-thin) solid var(--ink);
+}
+
+.prose .channel__title {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: var(--step-1);
+  font-stretch: 106%;
+}
+
+.prose .channel__desc {
+  margin: 0;
+}
+
+.channel__action {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: var(--target);
+  margin-top: 0.4rem;
+  padding: 0.5rem 1rem;
+  border: var(--rule) solid var(--ink);
+  font-weight: 800;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.channel__action::after {
+  content: "\2192";
+  font-weight: 400;
+  transition: transform 200ms var(--ease-out);
+}
+
+.channel__action:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.channel__action:hover::after {
+  transform: translateX(0.2em);
+}
+
+/* Next page -------------------------------------------------------------- */
+.next-page {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 0.25rem 1rem;
+  margin-top: clamp(3rem, 2rem + 4vw, 6rem);
+  padding: 1.25rem var(--gutter) 1.5rem;
+  border-block: var(--rule) solid var(--ink);
+  text-decoration: none;
+}
+
+.next-page::after {
+  content: "\2192";
+  grid-row: 1 / 3;
+  grid-column: 2;
+  font-size: var(--step-3);
+  font-weight: 400;
+  line-height: 1;
+  transition: transform 200ms var(--ease-out);
+}
+
+.next-page:hover::after {
+  transform: translateX(0.2em);
+}
+
+.next-page:hover .next-page__title {
+  text-decoration: underline;
+  text-decoration-thickness: var(--rule);
+}
+
+.next-page:focus-visible {
+  outline-offset: -6px;
+}
+
+.next-page__label {
+  font-size: var(--step--1);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.next-page__title {
+  font-size: var(--step-2);
+  font-weight: 900;
+  font-stretch: 112%;
+  line-height: 1.05;
+}

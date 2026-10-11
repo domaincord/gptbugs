@@ -1,0 +1,380 @@
+/* Feed ------------------------------------------------------------------- */
+.feed {
+  container-type: inline-size;
+}
+
+.feed__heading {
+  margin: 0;
+  padding: 0.75rem var(--gutter);
+  border-top: var(--rule) solid var(--ink);
+  font-size: var(--step--1);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.feed__more {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 3.75rem;
+  padding: 0.75rem var(--gutter);
+  border-bottom: var(--rule) solid var(--ink);
+  font-size: var(--step-1);
+  font-weight: 900;
+  font-stretch: 112%;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.feed__more::after {
+  content: "\2192";
+  transition: transform 200ms var(--ease-out);
+}
+
+.feed__more:hover::after {
+  transform: translateX(0.3em);
+}
+
+.feed__more:focus-visible {
+  outline-offset: -6px;
+}
+
+/* Filters */
+.feed-filters {
+  display: grid;
+  gap: 1rem 2rem;
+  padding: 1.25rem var(--gutter);
+  border-top: var(--rule) solid var(--ink);
+}
+
+.feed-filters__search label,
+.seg legend {
+  display: block;
+  margin-bottom: 0.4rem;
+  padding: 0;
+  font-size: var(--step--1);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.feed-filters input[type="search"] {
+  display: block;
+  width: 100%;
+  min-height: 3.5rem;
+  padding: 0.5rem 0.875rem;
+  border: var(--rule) solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--step-1);
+  font-weight: 600;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.feed-filters input[type="search"]::placeholder {
+  color: var(--ink-muted);
+  opacity: 1;
+}
+
+.feed-filters input[type="search"]:focus-visible {
+  outline-offset: 2px;
+}
+
+.seg {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.seg legend {
+  float: left;
+  width: 100%;
+}
+
+.seg__opt {
+  position: relative;
+  display: inline-flex;
+  margin: 0 -1px -1px 0;
+}
+
+.seg__opt input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.seg__opt span {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target);
+  padding: 0.5rem 0.9rem;
+  border: var(--rule-thin) solid var(--ink);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.seg__opt:hover span {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+.seg__opt input:checked + span {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.seg__opt input:focus-visible + span {
+  position: relative;
+  z-index: 1;
+  outline: var(--rule) solid var(--ink);
+  outline-offset: 3px;
+}
+
+.feed-filters__count {
+  margin: 0;
+  font-size: var(--step--1);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@container (min-width: 56rem) {
+  .feed-filters {
+    grid-template-columns: auto 1fr;
+    align-items: end;
+  }
+
+  .feed-filters__search,
+  .feed-filters__count {
+    grid-column: 1 / -1;
+  }
+
+  .feed-filters__search input[type="search"] {
+    max-width: 40rem;
+  }
+}
+
+/* Report rows */
+.bug-list {
+  border-top: var(--rule) solid var(--ink);
+}
+
+.bug-list > li {
+  border-bottom: var(--rule-thin) solid var(--ink);
+}
+
+.bug {
+  display: grid;
+  grid-template-areas:
+    "num"
+    "body"
+    "meta";
+  gap: 0.5rem 1.5rem;
+  padding: 1.25rem var(--gutter) 1.5rem;
+  scroll-margin-top: 1rem;
+}
+
+.bug:target {
+  outline: var(--rule) solid var(--ink);
+  outline-offset: calc(var(--rule) * -1);
+}
+
+.bug__num {
+  grid-area: num;
+  align-self: start;
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target);
+  margin-block: -0.5rem;
+  font-size: var(--step-1);
+  font-weight: 900;
+  font-stretch: 125%;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.bug__num::before {
+  content: "#";
+  margin-right: 0.08em;
+  font-weight: 400;
+}
+
+.bug__num:hover {
+  text-decoration: underline;
+  text-decoration-thickness: var(--rule);
+}
+
+.bug__body {
+  grid-area: body;
+  min-width: 0;
+}
+
+.bug__title {
+  margin: 0;
+  max-width: 40ch;
+  font-size: var(--step-1);
+  font-weight: 800;
+  font-stretch: 106%;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.bug__desc {
+  margin: 0.5rem 0 0;
+  max-width: 68ch;
+  overflow-wrap: anywhere;
+}
+
+.bug__byline {
+  margin: 0.75rem 0 0;
+  color: var(--ink-muted);
+  font-size: var(--step--1);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.bug__meta {
+  grid-area: meta;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  margin: 0.5rem 0 0;
+}
+
+.bug__meta dt {
+  margin-bottom: 0.3rem;
+  color: var(--ink-muted);
+  font-size: var(--step--1);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.bug__meta dd {
+  margin: 0;
+}
+
+@container (min-width: 48rem) {
+  .bug {
+    grid-template-areas: "num body meta";
+    grid-template-columns: 6.5rem minmax(0, 1fr) 11rem;
+    padding-block: 1.5rem 1.75rem;
+  }
+
+  .bug__meta {
+    flex-direction: column;
+    margin: 0;
+  }
+}
+
+/* Severity: text label + four-step bar. Only critical takes the signal colour. */
+.sev {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.sev__label {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.sev__bar {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.sev__bar i {
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 2px solid currentColor;
+}
+
+.sev[data-level="1"] i:nth-child(-n + 1),
+.sev[data-level="2"] i:nth-child(-n + 2),
+.sev[data-level="3"] i:nth-child(-n + 3),
+.sev[data-level="4"] i {
+  background: currentColor;
+}
+
+.sev--critical {
+  color: var(--signal);
+}
+
+/* Status: unpatched is a solid signal block; patched is an outlined label. */
+.status {
+  display: inline-block;
+  padding: 0.2em 0.5em;
+  border: 2px solid var(--ink);
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.status--unpatched {
+  border-color: var(--signal);
+  background: var(--signal);
+  color: var(--paper);
+}
+
+/* Empty state */
+.feed-empty {
+  padding: clamp(2rem, 1rem + 4vw, 4rem) var(--gutter);
+  border-bottom: var(--rule) solid var(--ink);
+}
+
+.feed-empty p {
+  margin: 0 0 0.5rem;
+  max-width: 52ch;
+}
+
+.feed-empty__title {
+  font-size: var(--step-1);
+  font-weight: 900;
+  font-stretch: 112%;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target);
+  margin-top: 1rem;
+  padding: 0.5rem 1.1rem;
+  border: var(--rule) solid var(--ink);
+  border-radius: 0;
+  background: var(--ink);
+  color: var(--paper);
+  font: inherit;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+@media (forced-colors: active) {
+  .seg__opt input:checked + span,
+  .status--unpatched,
+  .button {
+    forced-color-adjust: none;
+    background: CanvasText;
+    color: Canvas;
+  }
+}

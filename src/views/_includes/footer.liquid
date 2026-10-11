@@ -1,0 +1,15 @@
+<footer class="site-footer">
+  <nav class="footer-nav" aria-label="Footer">
+    <ul class="footer-nav__list">
+      {%- for item in site.footerNav %}
+      <li><a class="footer-nav__link" href="{{ item.url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.label }}</a></li>
+      {%- endfor %}
+    </ul>
+  </nav>
+  <div class="site-footer__mark" aria-hidden="true">
+    {%- include "wordmark.liquid", wordmark_size: "giant" -%}
+  </div>
+  <p class="site-footer__legal">
+    &copy; {{ site.year }} <a href="{{ site.owner.url }}">{{ site.owner.name }}</a> {{ site.owner.suffix }}
+  </p>
+</footer>

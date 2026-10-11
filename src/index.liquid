@@ -1,0 +1,20 @@
+---
+layout: base.liquid
+title: Home
+---
+{%- assign latest = rolling-feed | sort: "submissionDate" | reverse -%}
+<div class="page-head">
+  <h1>Prompt injections, logged.</h1>
+  <p class="page-head__lede">Real attacks against real AI products, with what went wrong and how to stop it in yours.</p>
+  {% include "feed-stats.liquid" %}
+</div>
+
+<section class="feed" aria-labelledby="latest-heading">
+  <h2 class="feed__heading" id="latest-heading">Latest reports</h2>
+  <ol class="bug-list" role="list">
+    {%- for entry in latest limit: 5 %}
+    <li>{% include "injection.liquid", entry: entry, bug_heading: 3 %}</li>
+    {%- endfor %}
+  </ol>
+  <a class="feed__more" href="/injections/">All injections</a>
+</section>

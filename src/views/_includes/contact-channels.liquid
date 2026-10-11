@@ -1,0 +1,23 @@
+{%- comment -%} Ways to reach GPT Bugs, one row per channel. Addresses come from site.json. {%- endcomment -%}
+<ul class="channels" role="list">
+  <li class="channel">
+    <h2 class="channel__title" id="report-an-injection">Report an injection</h2>
+    <p class="channel__desc">Private. Submissions go only to GPT Bugs. Use it for every injection, patched or not.</p>
+    <a class="channel__action" href="{{ site.reportForm }}">Open the report form</a>
+  </li>
+  <li class="channel">
+    <h2 class="channel__title" id="corrections">Corrections</h2>
+    <p class="channel__desc">A listed report is wrong, out of date or now patched. Also for follow-ups on something you've already reported.</p>
+    <a class="channel__action" href="mailto:{{ site.email.report }}">{{ site.email.report }}</a>
+  </li>
+  <li class="channel">
+    <h2 class="channel__title" id="general">General</h2>
+    <p class="channel__desc">Questions, press, partnerships, problems with the site.</p>
+    <a class="channel__action" href="mailto:{{ site.email.general }}">{{ site.email.general }}</a>
+  </li>
+  <li class="channel">
+    <h2 class="channel__title" id="copyright">Copyright</h2>
+    <p class="channel__desc">Takedown notices and counter-notices. Read the <a href="/dmca/">DMCA policy</a> first.</p>
+    <a class="channel__action" href="mailto:{{ site.email.dmca }}">{{ site.email.dmca }}</a>
+  </li>
+</ul>

@@ -1,0 +1,33 @@
+/* Wordmark --------------------------------------------------------------- */
+.wordmark {
+  display: inline-flex;
+  align-items: stretch;
+  font-weight: 900;
+  font-stretch: 125%;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.wordmark__gpt,
+.wordmark__bugs {
+  padding: 0.12em 0.14em 0.08em;
+}
+
+.wordmark__gpt {
+  padding-left: 0;
+}
+
+.wordmark__bugs {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+@media (forced-colors: active) {
+  .wordmark__bugs {
+    forced-color-adjust: none;
+    background: CanvasText;
+    color: Canvas;
+  }
+}

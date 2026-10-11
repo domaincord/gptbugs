@@ -1,0 +1,40 @@
+---
+layout: base.liquid
+---
+{%- comment -%}
+  Long-form page. Front matter: title, lede, updated ("YYYY-MM-DD", quoted), next: { label, url }, toc: false to hide contents
+{%- endcomment -%}
+{%- assign sections = content | toc -%}
+<div class="page-head">
+  <h1>{{ title }}</h1>
+  {%- if lede %}
+  <p class="page-head__lede">{{ lede }}</p>
+  {%- endif %}
+  {%- if updated %}
+  <p class="page-head__meta">Last reviewed <time datetime="{{ updated }}">{{ updated }}</time></p>
+  {%- endif %}
+</div>
+
+<div class="article{% if sections.size < 2 or toc == false %} article--single{% endif %}">
+  {%- if sections.size > 1 and toc != false %}
+  <nav class="toc" aria-labelledby="toc-heading">
+    <h2 class="toc__heading" id="toc-heading">On this page</h2>
+    <ol class="toc__list" role="list">
+      {%- for s in sections %}
+      <li><a href="#{{ s.id }}">{{ s.text }}</a></li>
+      {%- endfor %}
+    </ol>
+  </nav>
+  {%- endif %}
+
+  <article class="prose">
+    {{ content }}
+  </article>
+</div>
+
+{%- if next %}
+<a class="next-page" href="{{ next.url }}">
+  <span class="next-page__label">Next</span>
+  <span class="next-page__title">{{ next.label }}</span>
+</a>
+{%- endif %}

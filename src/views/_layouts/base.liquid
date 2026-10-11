@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if title %}{{ title }} — {% endif %}{{ site.name }}</title>
+  <meta name="description" content="{{ description | default: site.tagline }}">
+  <meta name="color-scheme" content="light dark">
+  {%- if noindex %}
+  <meta name="robots" content="noindex">
+  {%- endif %}
+  <link rel="preload" href="/assets/fonts/archivo/archivo-latin-wdth.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/wordmark.css">
+  <link rel="stylesheet" href="/assets/css/header.css">
+  <link rel="stylesheet" href="/assets/css/footer.css">
+  <link rel="stylesheet" href="/assets/css/feed.css">
+  <link rel="stylesheet" href="/assets/css/prose.css">
+</head>
+<body>
+  {% include "header.liquid" %}
+  <main id="main" class="site-main" tabindex="-1">
+    {{ content }}
+  </main>
+  {% include "footer.liquid" %}
+</body>
+</html>

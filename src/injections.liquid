@@ -1,0 +1,56 @@
+---
+layout: base.liquid
+title: Injections
+description: Prompt injections reported against live AI products, newest first.
+permalink: /injections/
+---
+{%- assign feed = rolling-feed | sort: "submissionDate" | reverse -%}
+{%- assign severity_opts = "all,critical,high,medium,low" | split: "," -%}
+{%- assign status_opts = "all,unpatched,patched" | split: "," -%}
+<div class="page-head">
+  <h1>Injections</h1>
+  <p class="page-head__lede">Prompt injections reported against live AI products, newest first.</p>
+  {% include "feed-stats.liquid" %}
+</div>
+
+{%- if feed.size > 0 %}
+<section class="feed" data-feed aria-label="Injection reports">
+  <form class="feed-filters" role="search" hidden>
+    <div class="feed-filters__search">
+      <label for="feed-q">Search</label>
+      <input id="feed-q" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="Product or technique">
+    </div>
+    <fieldset class="seg">
+      <legend>Severity</legend>
+      {%- for opt in severity_opts %}
+      <label class="seg__opt"><input type="radio" name="severity" value="{{ opt }}"{% if forloop.first %} checked{% endif %}><span>{{ opt }}</span></label>
+      {%- endfor %}
+    </fieldset>
+    <fieldset class="seg">
+      <legend>Status</legend>
+      {%- for opt in status_opts %}
+      <label class="seg__opt"><input type="radio" name="status" value="{{ opt }}"{% if forloop.first %} checked{% endif %}><span>{{ opt }}</span></label>
+      {%- endfor %}
+    </fieldset>
+    <p class="feed-filters__count" data-feed-count aria-live="polite"></p>
+  </form>
+
+  <ol class="bug-list" role="list">
+    {%- for entry in feed %}
+    <li>{% include "injection.liquid", entry: entry, bug_heading: 2 %}</li>
+    {%- endfor %}
+  </ol>
+
+  <div class="feed-empty" data-feed-empty hidden>
+    <p class="feed-empty__title">No reports match.</p>
+    <p>Try fewer words, or widen the severity and status filters.</p>
+    <button type="button" class="button" data-feed-reset>Clear filters</button>
+  </div>
+</section>
+<script src="/assets/js/feed.js" defer></script>
+{%- else %}
+<div class="feed-empty">
+  <p class="feed-empty__title">Nothing logged yet.</p>
+  <p>Reports appear here as soon as they are verified.</p>
+</div>
+{%- endif %}

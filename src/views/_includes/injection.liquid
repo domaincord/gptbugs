@@ -1,0 +1,40 @@
+{%- comment -%}
+  One injection report.
+  Params: entry (object from rolling-feed.json), bug_heading (2–6, default 2)
+{%- endcomment -%}
+{%- assign bug_num = entry.id | split: "-" | first -%}
+{%- assign bug_sev = entry.severity | default: "unrated" | downcase -%}
+{%- case bug_sev -%}
+  {%- when "critical" -%}{%- assign bug_level = 4 -%}
+  {%- when "high" -%}{%- assign bug_level = 3 -%}
+  {%- when "medium" -%}{%- assign bug_level = 2 -%}
+  {%- when "low" -%}{%- assign bug_level = 1 -%}
+  {%- else -%}{%- assign bug_level = 0 -%}
+{%- endcase -%}
+{%- if entry.patched -%}{%- assign bug_status = "patched" -%}{%- else -%}{%- assign bug_status = "unpatched" -%}{%- endif -%}
+{%- assign bug_h = bug_heading | default: 2 -%}
+{%- assign bug_reporter = entry.reporter | default: "Anonymous" -%}
+<article class="bug" id="{{ entry.id | escape }}"
+  data-severity="{{ bug_sev | escape }}"
+  data-status="{{ bug_status }}"
+  data-search="{{ entry.title | append: ' ' | append: entry.description | append: ' ' | append: bug_reporter | downcase | escape }}">
+  <a class="bug__num" href="#{{ entry.id | escape }}" aria-label="Link to report {{ bug_num | escape }}">{{ bug_num | escape }}</a>
+  <div class="bug__body">
+    <h{{ bug_h }} class="bug__title">{{ entry.title | escape }}</h{{ bug_h }}>
+    <p class="bug__desc">{{ entry.description | escape }}</p>
+    <p class="bug__byline">Reported <time datetime="{{ entry.submissionDate | escape }}">{{ entry.submissionDate | escape }}</time> by {{ bug_reporter | escape }}</p>
+  </div>
+  <dl class="bug__meta">
+    <div>
+      <dt>Severity</dt>
+      <dd class="sev sev--{{ bug_sev | escape }}" data-level="{{ bug_level }}">
+        <span class="sev__label">{{ bug_sev | escape }}</span>
+        <span class="sev__bar" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      </dd>
+    </div>
+    <div>
+      <dt>Status</dt>
+      <dd><span class="status status--{{ bug_status }}">{{ bug_status }}</span></dd>
+    </div>
+  </dl>
+</article>

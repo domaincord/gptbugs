@@ -1,0 +1,112 @@
+/* Footer ----------------------------------------------------------------- */
+.site-footer {
+  container-type: inline-size;
+  border-top: var(--rule) solid var(--ink);
+}
+
+.footer-nav__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.footer-nav__list li {
+  border-bottom: var(--rule-thin) solid var(--ink);
+}
+
+.footer-nav__list li:nth-child(odd) {
+  border-right: var(--rule-thin) solid var(--ink);
+}
+
+.footer-nav__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3.25rem;
+  padding: 0.75rem var(--gutter);
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.footer-nav__link::after {
+  content: "\2192";
+  font-weight: 400;
+  transition: transform 200ms var(--ease-out);
+}
+
+.footer-nav__link:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.footer-nav__link:hover::after {
+  transform: translateX(0.25em);
+}
+
+.footer-nav__link:focus-visible {
+  outline-offset: -6px;
+}
+
+.footer-nav__link[aria-current="page"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.footer-nav__link[aria-current="page"]:focus-visible {
+  outline-color: var(--paper);
+}
+
+@container (min-width: 40rem) {
+  .footer-nav__list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .footer-nav__list li:nth-child(odd) {
+    border-right: 0;
+  }
+
+  .footer-nav__list li + li {
+    border-left: var(--rule-thin) solid var(--ink);
+  }
+}
+
+/* Edge-to-edge wordmark sized to the footer's own width. */
+.site-footer__mark {
+  padding: clamp(1.5rem, 4cqi, 3rem) var(--gutter) 0;
+  overflow: hidden;
+}
+
+.wordmark--giant {
+  display: flex;
+  font-size: 13.4cqi;
+  letter-spacing: -0.035em;
+}
+
+.wordmark--giant .wordmark__bugs {
+  flex: 1;
+  padding-right: 0;
+}
+
+.site-footer__legal {
+  margin: 0;
+  padding: 1rem var(--gutter) 1.25rem;
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.site-footer__legal a {
+  display: inline-block;
+  padding-block: 0.75rem;
+}
+
+@media (forced-colors: active) {
+  .footer-nav__link[aria-current="page"] {
+    forced-color-adjust: none;
+    background: CanvasText;
+    color: Canvas;
+  }
+}

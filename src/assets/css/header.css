@@ -1,0 +1,121 @@
+/* Header ----------------------------------------------------------------- */
+.site-header {
+  border-bottom: var(--rule) solid var(--ink);
+}
+
+.site-header__tagline {
+  margin: 0;
+  padding: 0.5rem var(--gutter);
+  border-bottom: var(--rule-thin) solid var(--ink);
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.site-header__bar {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.site-header__home {
+  display: flex;
+  align-items: center;
+  min-height: var(--target);
+  padding: 1rem var(--gutter);
+  font-size: var(--step-1);
+  text-decoration: none;
+}
+
+.site-header__home:focus-visible {
+  outline-offset: -6px;
+}
+
+.site-nav__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: var(--rule) solid var(--ink);
+}
+
+.site-nav__list li + li {
+  border-left: var(--rule) solid var(--ink);
+}
+
+.site-nav__list li:nth-child(3) {
+  border-left: 0;
+}
+
+.site-nav__list li:nth-child(n + 3) {
+  border-top: var(--rule) solid var(--ink);
+}
+
+.site-nav__link {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  min-height: 3.25rem;
+  padding: 0.75rem var(--gutter);
+  font-weight: 700;
+  font-stretch: 110%;
+  line-height: 1.1;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  transition:
+    background-color 160ms var(--ease-out),
+    color 160ms var(--ease-out);
+}
+
+.site-nav__link:hover {
+  text-decoration: underline;
+  text-decoration-thickness: var(--rule);
+}
+
+.site-nav__link[aria-current="page"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.site-nav__link:focus-visible {
+  outline-offset: -7px;
+}
+
+.site-nav__link[aria-current="page"]:focus-visible {
+  outline-color: var(--paper);
+}
+
+@media (min-width: 52rem) {
+  .site-header__bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .site-nav {
+    border-left: var(--rule) solid var(--ink);
+  }
+
+  .site-nav__list {
+    grid-template-columns: repeat(4, auto);
+    height: 100%;
+    border-top: 0;
+  }
+
+  .site-nav__list li:nth-child(n) {
+    border-top: 0;
+  }
+
+  .site-nav__list li:nth-child(3) {
+    border-left: var(--rule) solid var(--ink);
+  }
+
+  .site-nav__link {
+    padding-inline: clamp(1rem, 0.5rem + 1vw, 1.75rem);
+  }
+}
+
+@media (forced-colors: active) {
+  .site-nav__link[aria-current="page"] {
+    forced-color-adjust: none;
+    background: CanvasText;
+    color: Canvas;
+  }
+}

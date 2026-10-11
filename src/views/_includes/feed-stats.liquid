@@ -1,0 +1,9 @@
+{%- comment -%} Sentence summarising the feed: total logged and how many remain unpatched. {%- endcomment -%}
+{%- assign stats_unpatched = 0 -%}
+{%- for item in rolling-feed -%}
+  {%- unless item.patched -%}{%- assign stats_unpatched = stats_unpatched | plus: 1 -%}{%- endunless -%}
+{%- endfor -%}
+<p class="feed-stats">
+  <strong>{{ rolling-feed.size }}</strong> {% if rolling-feed.size == 1 %}injection{% else %}injections{% endif %} logged.
+  <strong{% if stats_unpatched > 0 %} class="feed-stats__open"{% endif %}>{{ stats_unpatched }}</strong> still unpatched.
+</p>

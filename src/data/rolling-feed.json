@@ -1,0 +1,11 @@
+[
+    {
+        "id": "0001-chipotle-site-widget",
+        "title": "[Sample] Chipotle Ai Chat",
+        "description": "The Chipotle Ai Chat widget allows users to interact with Chipotle's AI system for ordering and inquiries, but it may be susceptible to prompt injection attacks.",
+        "submissionDate": "2026-06-15",
+        "reporter": "Anonymous",
+        "patched": false,
+        "severity": "medium"
+    }
+]
