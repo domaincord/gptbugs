@@ -15,10 +15,14 @@
 
 .site-header__bar {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "home report"
+    "nav nav";
 }
 
 .site-header__home {
+  grid-area: home;
   display: flex;
   align-items: center;
   min-height: var(--target);
@@ -29,6 +33,10 @@
 
 .site-header__home:focus-visible {
   outline-offset: -6px;
+}
+
+.site-nav {
+  grid-area: nav;
 }
 
 .site-nav__list {
@@ -50,6 +58,7 @@
 }
 
 .site-nav__link {
+  position: relative;
   display: flex;
   align-items: center;
   height: 100%;
@@ -72,21 +81,94 @@
 }
 
 .site-nav__link[aria-current="page"] {
+  font-weight: 900;
+}
+
+/* Current section: a heavy bar along the bottom. Inversion is reserved for the report action. */
+.site-nav__link[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: calc(var(--rule) * 2);
   background: var(--ink);
-  color: var(--paper);
 }
 
 .site-nav__link:focus-visible {
   outline-offset: -7px;
 }
 
-.site-nav__link[aria-current="page"]:focus-visible {
-  outline-color: var(--paper);
+/* Report: the one solid, inverted action in the header. */
+.site-header__report {
+  grid-area: report;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: var(--target);
+  padding: 0.75rem var(--gutter);
+  border-left: var(--rule) solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 900;
+  font-stretch: 112%;
+  line-height: 1.1;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
-@media (min-width: 52rem) {
+.site-header__report::after {
+  content: "+";
+  font-size: 1.4em;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.site-header__report:hover {
+  text-decoration: underline;
+  text-decoration-thickness: var(--rule);
+  text-underline-offset: 0.25em;
+}
+
+.site-header__report:focus-visible {
+  outline-color: var(--paper);
+  outline-offset: -7px;
+}
+
+@media (max-width: 23rem) {
+  .site-header__report-more {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 40rem) {
+  .site-nav__list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .site-nav__list li:nth-child(n) {
+    border-top: 0;
+  }
+
+  .site-nav__list li:nth-child(3) {
+    border-left: var(--rule) solid var(--ink);
+  }
+
+  .site-header__report {
+    padding-inline: clamp(1.25rem, 0.5rem + 2vw, 2.25rem);
+    font-size: var(--step-1);
+  }
+}
+
+@media (min-width: 72rem) {
   .site-header__bar {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto;
+    grid-template-areas: "home nav report";
   }
 
   .site-nav {
@@ -113,7 +195,12 @@
 }
 
 @media (forced-colors: active) {
-  .site-nav__link[aria-current="page"] {
+  .site-nav__link[aria-current="page"]::after {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+
+  .site-header__report {
     forced-color-adjust: none;
     background: CanvasText;
     color: Canvas;
